@@ -15,6 +15,13 @@ Caterpillar ScreenSaver: a caterpillar eating out your desktop
 
 
 
+## User's Guide
+
+* Copy app to your desired folder and install the screensaver
+* You cal also integrate [SnapDesktop](https://github.com/RemusRigo/SnapDesktop-VB.NET)
+  * run this app to take a screenshot avery minute of your desktop and the screensaver will use this image
+
+
 ## Downloads \& Runtimes
 
 This project is available in multiple builds to support different environments.
@@ -22,7 +29,6 @@ The release contains following Frameworks:
 
 |Target Framework|Supported Architectures|Required Runtime|
 |-|-|-|
-|**.NET Framework 4.8**|x86, x64|[.NET Framework 4.8 Runtime](https://dotnet.microsoft.com/download/dotnet-framework/net48)|
 |**.NET 8.0**|x86, x64|[.NET 8.0 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) *(or Desktop Runtime for UI apps)*|
 |**.NET 10.0**|x86, x64|[.NET 10.0 Runtime](https://dotnet.microsoft.com/download/dotnet/10.0) *(or Desktop Runtime for UI apps)*|
 
