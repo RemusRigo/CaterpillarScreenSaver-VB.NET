@@ -47,7 +47,11 @@ The release contains following Frameworks:
 
 ## Roadmap
 
-* 2026-09-27: Add: Implement 3 colors (RGB)
+* 2026-10-11: Add: Icon: [Caterpillar](https://www.flaticon.com/free-icon/caterpillar_5511785) by [smashicons] (https://www.flaticon.com/authors/smashicons)
+* 2026-10-11: Upd: Paint with desktop solid color of current Windows theme if no image is found
+* 2026-10-11: Upd: Load wallpaper if Screenshot not found
+* 2026-10-11: Fix: Preview shows just a static image (previous was a blank preview)
+* 2026-09-27: Add: Implement 3 colors (RGB) for the Caterpillar
 * 2026-09-27: Add: Config: select char set
 * 2026-09-27: Add: Preview
 * 2026-09-26: Fix: Invert message in the center
