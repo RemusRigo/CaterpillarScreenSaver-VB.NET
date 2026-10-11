@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+ <PropertyGroup>
+      <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+      <AssemblyName>CaterpillarSS</AssemblyName>
+      <MyType>WindowsFormsWithCustomSubMain</MyType>
+      <OutputType>WinExe</OutputType>
+      <StartupObject>Sub Main</StartupObject>
+      <TargetFrameworks>net8.0-windows;net10.0-windows</TargetFrameworks>
+      <UseWindowsForms>true</UseWindowsForms>
+      <Platforms>x64;x86</Platforms>
+      <ApplicationIcon>Res\Caterpillar.ico</ApplicationIcon>
+  </PropertyGroup>
+
+     <PropertyGroup Condition="'$(TargetFramework)' != ''">
+      <TfmName>$(TargetFramework.Replace('-windows', ''))</TfmName>
+      <OutputPath>..\bin\$(Configuration)\$(TfmName) $(Platform)\</OutputPath>
+      <IntermediateOutputPath>obj\$(Configuration)\$(TfmName) $(Platform)\</IntermediateOutputPath>
+   </PropertyGroup>
+
+   <PropertyGroup Condition="'$(Platform)' == 'x86' Or '$(Platform)' == 'x64'">
+      <PlatformTarget>$(Platform)</PlatformTarget>
+   </PropertyGroup>
+
+   <ItemGroup>
+     <Content Include="Res\Caterpillar.ico" />
+   </ItemGroup>
+
+  <ItemGroup>
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="My Project\Application.Designer.vb">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="API\" />
+    <Folder Include="Classes\" />
+  </ItemGroup>
+
+   <Target Name="RenameToScr" AfterTargets="Build">
+      <Move SourceFiles="$(TargetDir)$(AssemblyName).exe" DestinationFiles="$(TargetDir)$(AssemblyName).scr" />
+   </Target>
+
+</Project>
