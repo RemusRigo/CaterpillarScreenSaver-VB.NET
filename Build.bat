@@ -11,6 +11,7 @@ dotnet build -f net8.0-windows -c Release -p:Platform=x86 -p:DebugType=None -p:D
 dotnet build -f net10.0-windows -c Release -p:Platform=x64 -p:DebugType=None -p:DebugSymbols=false
 dotnet build -f net10.0-windows -c Release -p:Platform=x86 -p:DebugType=None -p:DebugSymbols=false
 
-copy README.md .\bin\Release /Y
+copy *.md .\bin\Release /Y
+copy *.txt .\bin\Release /Y
 
 @timeout 7

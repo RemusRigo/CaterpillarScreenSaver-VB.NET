@@ -9,7 +9,7 @@ Public Class frmCfg
 
    Private _color As Color = AppSettings.BodyColor
 
-   Private Const SYSMENU_ABOUT_ID As UInteger = 1000
+   Private Const SYSMENU_ABOUT_ID As UInteger = &H1000UI ' 4096
 
    Protected Overrides Sub OnHandleCreated(e As EventArgs)
       MyBase.OnHandleCreated(e)
@@ -22,8 +22,9 @@ Public Class frmCfg
    Protected Overrides Sub WndProc(ByRef m As Message)
       MyBase.WndProc(m)
       If m.Msg = WM_SYSCOMMAND Then
-         If CUInt(m.WParam) = SYSMENU_ABOUT_ID Then
-            frmAbout.ShowDialog()
+         ' Mask off the low 4 bits, which Windows uses internally
+         If (m.WParam.ToInt64() And &HFFF0L) = SYSMENU_ABOUT_ID Then
+            frmAbout.ShowDialog(Me) ' passes the settings form as owner. The About box then stays on top of it and centres on it if its StartPosition is CenterParent
          End If
       End If
    End Sub

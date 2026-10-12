@@ -52,7 +52,7 @@
     <Folder Include="Classes\" />
   </ItemGroup>
 
-   <Target Name="RenameToScr" AfterTargets="Build">
+   <Target Name="RenameToScr" AfterTargets="Build" Condition="'$(TargetFramework)' != ''">
       <Move SourceFiles="$(TargetDir)$(AssemblyName).exe" DestinationFiles="$(TargetDir)$(AssemblyName).scr" />
    </Target>
 

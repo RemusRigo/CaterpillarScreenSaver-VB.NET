@@ -28,18 +28,31 @@ Public Class frmSS
    Private ReadOnly BiteRadius As Single       ' hole size, a bit wider than the body
    Private _eatG As Graphics                   ' kept open: we draw on the screenshot every tick
 
+   ' Drawing tools, created once in the constructor (not 32 times per frame)
+   Private ReadOnly _brHead As SolidBrush
+   Private ReadOnly _brEven As SolidBrush
+   Private ReadOnly _brOdd As SolidBrush
+   Private ReadOnly _outline As Pen
+
+   Private ReadOnly _clock As Stopwatch = Stopwatch.StartNew()
+   Private _lastMs As Double
+
    '-----------------------------------------------------------------------------------------------
    ' frmSS: constructor
    Public Sub New(bounds As Rectangle, screenshot As Bitmap)
       InitializeComponent()
       _bounds = bounds
-      _screenshot = screenshot
+      _screenshot = ImageToPArgb(screenshot)
 
       Speed = AppSettings.Speed
       HeadRadius = AppSettings.BodySize
       BiteRadius = HeadRadius + 2.0F
       SegmentSpacing = HeadRadius * 1.15F
       _bodyColor = AppSettings.BodyColor
+      _brHead = New SolidBrush(AppSettings.Shade(_bodyColor, 0.6F))
+      _brEven = New SolidBrush(_bodyColor)
+      _brOdd = New SolidBrush(AppSettings.Shade(_bodyColor, 1.25F))
+      _outline = New Pen(AppSettings.Shade(_bodyColor, 0.35F), 1.5F)
 
       Me.FormBorderStyle = FormBorderStyle.None
       Me.StartPosition = FormStartPosition.Manual
@@ -56,19 +69,45 @@ Public Class frmSS
    Protected Overrides Sub OnPaint(e As PaintEventArgs)
       If _screenshot Is Nothing Then Return
       Dim g As Graphics = e.Graphics
+
+      ' Exact 1:1 pixel copy, no blending with the reused paint buffer
+      g.CompositingMode = Drawing2D.CompositingMode.SourceCopy
+      g.InterpolationMode = Drawing2D.InterpolationMode.NearestNeighbor
+      g.PixelOffsetMode = Drawing2D.PixelOffsetMode.Half
+
       g.DrawImage(_screenshot, e.ClipRectangle, e.ClipRectangle, GraphicsUnit.Pixel)
+
+      ' Back to normal blending for the anti-aliased caterpillar
+      g.CompositingMode = Drawing2D.CompositingMode.SourceOver
+      g.PixelOffsetMode = Drawing2D.PixelOffsetMode.Default
+
       DrawCaterpillar(g)
    End Sub
 
    '-----------------------------------------------------------------------------------------------
+   ' ToPArgb: convert the background to 32bpp premultiplied ARGB, the format GDI+ draws fastest
+   Private Shared Function ImageToPArgb(src As Bitmap) As Bitmap
+      If src.PixelFormat = Imaging.PixelFormat.Format32bppPArgb Then Return src
+
+      Dim dst As New Bitmap(src.Width, src.Height, Imaging.PixelFormat.Format32bppPArgb)
+      Using g As Graphics = Graphics.FromImage(dst)
+         g.CompositingMode = Drawing2D.CompositingMode.SourceCopy
+         g.DrawImage(src, New Rectangle(0, 0, src.Width, src.Height),
+                  0, 0, src.Width, src.Height, GraphicsUnit.Pixel)
+      End Using
+      src.Dispose()          ' the original is no longer needed
+      Return dst
+   End Function
+
+   '-----------------------------------------------------------------------------------------------
    ' MoveCaterpillar: update the caterpillar's position and body segments
-   Private Sub MoveCaterpillar()
+   Private Sub MoveCaterpillar(dt As Single)
       ' Wander: the turn rate drifts randomly but stays small, so the path is smooth
       _turn = Math.Max(-0.06, Math.Min(0.06, _turn * 0.96 + (_rnd.NextDouble() - 0.5) * 0.03))
       _angle += _turn
 
-      Dim nx As Single = _segs(0).X + CSng(Math.Cos(_angle) * Speed)
-      Dim ny As Single = _segs(0).Y + CSng(Math.Sin(_angle) * Speed)
+      Dim nx As Single = _segs(0).X + CSng(Math.Cos(_angle) * Speed * dt)
+      Dim ny As Single = _segs(0).Y + CSng(Math.Sin(_angle) * Speed * dt)
       If IsOnScreen(nx, ny) Then
          _segs(0) = New PointF(nx, ny)
       Else
@@ -120,20 +159,18 @@ Public Class frmSS
       For i As Integer = SegmentCount - 1 To 0 Step -1
          Dim rad As Single = HeadRadius * (1.0F - 0.45F * i / (SegmentCount - 1))
          Dim p As PointF = _segs(i)
-         Dim fill As Color
+         Dim br As SolidBrush
 
          If i = 0 Then
-            fill = AppSettings.Shade(_bodyColor, 0.6F)
+            br = _brHead
          ElseIf i Mod 2 = 0 Then
-            fill = _bodyColor
+            br = _brEven
          Else
-            fill = AppSettings.Shade(_bodyColor, 1.25F)
+            br = _brOdd
          End If
 
-         Using br As New SolidBrush(fill), pen As New Pen(AppSettings.Shade(_bodyColor, 0.35F), 1.5F)
-            g.FillEllipse(br, p.X - rad, p.Y - rad, rad * 2, rad * 2)
-            g.DrawEllipse(pen, p.X - rad, p.Y - rad, rad * 2, rad * 2)
-         End Using
+         g.FillEllipse(br, p.X - rad, p.Y - rad, rad * 2, rad * 2)
+         g.DrawEllipse(_outline, p.X - rad, p.Y - rad, rad * 2, rad * 2)
       Next
 
       ' Eyes
@@ -194,6 +231,10 @@ Public Class frmSS
       _timer.Stop()
       _eatG.Dispose()
       _screenshot.Dispose()
+      _brHead.Dispose()
+      _brEven.Dispose()
+      _brOdd.Dispose()
+      _outline.Dispose()
       Cursor.Show()
       Application.Exit()
    End Sub
@@ -223,8 +264,13 @@ Public Class frmSS
    '-----------------------------------------------------------------------------------------------
    ' _timer: OnTick: update the caterpillar's position, draw a bite, and invalidate the area that needs to be repainted
    Private Sub _timer_Tick(sender As Object, e As EventArgs) Handles _timer.Tick
+      ' make speed independent of the timer
+      Dim now As Double = _clock.Elapsed.TotalMilliseconds
+      Dim dt As Single = CSng(Math.Min(50, now - _lastMs) / 16.0)   ' 1.0 = one "nominal" tick
+      _lastMs = now
+
       Dim before As Rectangle = BodyBounds()
-      MoveCaterpillar()
+      MoveCaterpillar(dt)
       Eat()
       Invalidate(Rectangle.Union(before, BodyBounds()))
    End Sub

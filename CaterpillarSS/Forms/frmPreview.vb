@@ -134,7 +134,7 @@ Public Class frmPreview
    ' Windows destroys the preview pane without telling us: poll for it and quit
    Private Sub _timer_Tick(sender As Object, e As EventArgs) Handles _timer.Tick
       If Not IsWindow(_parent) Then Close()
-      Invalidate()
+      'Invalidate()
    End Sub
 
 End Class

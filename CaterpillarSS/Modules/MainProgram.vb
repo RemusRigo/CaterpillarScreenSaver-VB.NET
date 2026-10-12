@@ -17,14 +17,15 @@ Module MainProgram
    ' Main()
    <STAThread>
    Sub Main(args As String())
-      SetProcessDPIAware()
+      'SetProcessDPIAware()
+      Application.SetHighDpiMode(HighDpiMode.PerMonitorV2)
       AppSettings.Load()
       Application.EnableVisualStyles()
       Application.SetCompatibleTextRenderingDefault(False)
 
       Dim mode As String = ""
 
-      If args.Length > 0 Then mode = args(0).Trim().ToLower().Substring(0, 2)
+      If args.Length > 0 Then mode = args(0).Trim().ToLower().PadRight(2).Substring(0, 2)
 
       Select Case mode
          Case "/c"
@@ -41,7 +42,7 @@ Module MainProgram
    '-----------------------------------------------------------------------------------------------
    ' RunScreenSaver
    Private Sub RunScreenSaver()
-      Dim vSrc As Rectangle = SystemInformation.VirtualScreen
+      Dim vScreen As Rectangle = SystemInformation.VirtualScreen
       Dim DeskSnap As Bitmap = Nothing
       Dim imgPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Remus RIGO\SnapDesktop\Desktop.png")
 
@@ -49,8 +50,10 @@ Module MainProgram
       If File.Exists(imgPath) Then
          ' copy image to memory to avoid file locking issues
          Try
-            Using fs As New FileStream(imgPath, FileMode.Open, FileAccess.Read)
-               DeskSnap = New Bitmap(fs)
+            Using fs As New FileStream(imgPath, FileMode.Open, FileAccess.Read), tmp As New Bitmap(fs)
+               If tmp.Width = vScreen.Width AndAlso tmp.Height = vScreen.Height Then
+                  DeskSnap = New Bitmap(tmp)
+               End If
             End Using
          Catch
             DeskSnap = Nothing
@@ -68,7 +71,7 @@ Module MainProgram
             Try
                Using fs As New FileStream(imgPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
                   Using loaded As New Bitmap(fs)
-                     DeskSnap = FitToScreens(loaded, vSrc)    ' fit wallpaper on every monitor
+                     DeskSnap = FitToScreens(loaded, vScreen)    ' fit wallpaper on every monitor
                   End Using
                End Using
             Catch
@@ -79,13 +82,13 @@ Module MainProgram
 
       ' nothing usable: paint the virtual screen with solid desktop background color of the current Windows theme
       If DeskSnap Is Nothing Then
-         DeskSnap = New Bitmap(vSrc.Width, vSrc.Height, Imaging.PixelFormat.Format24bppRgb)
+         DeskSnap = New Bitmap(vScreen.Width, vScreen.Height, Imaging.PixelFormat.Format24bppRgb)
          Using g As Graphics = Graphics.FromImage(DeskSnap)
             g.Clear(ThemeColor())
          End Using
       End If
 
-      Dim frm As New frmSS(vSrc, DeskSnap)
+      Dim frm As New frmSS(vScreen, DeskSnap)
       Application.Run(frm)
    End Sub
 
