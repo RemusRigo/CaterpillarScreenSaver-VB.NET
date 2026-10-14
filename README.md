@@ -1,6 +1,7 @@
 # Caterpillar ScreenSaver
 Caterpillar ScreenSaver: a caterpillar eating out your desktop
 
+![VB.NET](https://img.shields.io/badge/VB.NET-512BD4?style=for-the-badge&logo=.net&logoColor=white)
 
 ## Authors
 
@@ -22,17 +23,6 @@ Caterpillar ScreenSaver: a caterpillar eating out your desktop
 ## User's Guide
 
 See the [User's Guide](UsersGuide.md) for downloads, runtimes, installation and settings.
-
-## Downloads \& Runtimes
-
-This project is available in multiple builds to support different environments.
-The release contains following Frameworks:
-
-|Target Framework|Supported Architectures|Required Runtime|
-|-|-|-|
-|**.NET 8.0**|x86, x64|[.NET 8.0 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) *(or Desktop Runtime for UI apps)*|
-|**.NET 10.0**|x86, x64|[.NET 10.0 Runtime](https://dotnet.microsoft.com/download/dotnet/10.0) *(or Desktop Runtime for UI apps)*|
-
 
 
 ## Statistics
