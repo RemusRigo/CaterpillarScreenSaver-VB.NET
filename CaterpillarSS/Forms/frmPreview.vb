@@ -35,22 +35,6 @@ Public Class frmPreview
    End Sub
 
    '-----------------------------------------------------------------------------------------------
-   ' Turn the form into a child window of the preview pane
-   'Protected Overrides ReadOnly Property CreateParams As CreateParams
-   '   Get
-   '      Dim cp As CreateParams = MyBase.CreateParams
-   '      'cp.Style = (cp.Style And Not WS_POPUP) Or WS_CHILD
-   '      cp.Style = (cp.Style And Not WS_POPUP) Or WS_CHILD Or WS_VISIBLE
-   '      cp.Parent = _parent
-   '      cp.X = 0
-   '      cp.Y = 0
-   '      cp.Width = _size.Width
-   '      cp.Height = _size.Height
-   '      Return cp
-   '   End Get
-   'End Property
-
-   '-----------------------------------------------------------------------------------------------
    ' BuildPreviewImage: create a bitmap of the caterpillar on a black background
    Private Function BuildPreviewImage(sz As Size, shot As Bitmap) As Bitmap
       Dim bmp As New Bitmap(sz.Width, sz.Height)

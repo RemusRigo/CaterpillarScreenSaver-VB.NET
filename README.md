@@ -25,6 +25,7 @@ Caterpillar ScreenSaver: a caterpillar eating out your desktop
 See the [User's Guide](UsersGuide.md) for downloads, runtimes, installation and settings.
 
 
+
 ## Statistics
 
 ![VB.NET](https://img.shields.io/badge/Language-VB.NET-512BD4?labelColor=555555)

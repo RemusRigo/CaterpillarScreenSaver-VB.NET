@@ -21,7 +21,7 @@
    <PropertyGroup Condition="'$(Platform)' == 'x86' Or '$(Platform)' == 'x64'">
       <PlatformTarget>$(Platform)</PlatformTarget>
    </PropertyGroup>
-
+     
    <ItemGroup>
      <Content Include="Res\Caterpillar.ico" />
    </ItemGroup>
@@ -45,11 +45,6 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="API\" />
-    <Folder Include="Classes\" />
   </ItemGroup>
 
    <Target Name="RenameToScr" AfterTargets="Build" Condition="'$(TargetFramework)' != ''">
