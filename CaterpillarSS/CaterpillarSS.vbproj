@@ -12,11 +12,11 @@
       <ApplicationIcon>Res\Caterpillar.ico</ApplicationIcon>
   </PropertyGroup>
 
-     <PropertyGroup Condition="'$(TargetFramework)' != ''">
-      <TfmName>$(TargetFramework.Replace('-windows', ''))</TfmName>
-      <OutputPath>..\bin\$(Configuration)\$(TfmName) $(Platform)\</OutputPath>
-      <IntermediateOutputPath>obj\$(Configuration)\$(TfmName) $(Platform)\</IntermediateOutputPath>
-   </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' != ''">
+     <TfmName>$(TargetFramework.Replace('-windows', ''))</TfmName>
+     <OutputPath>..\bin\$(Configuration)\$(TfmName) $(Platform)\</OutputPath>
+     <IntermediateOutputPath>obj\$(Configuration)\$(TfmName) $(Platform)\</IntermediateOutputPath>
+  </PropertyGroup>
 
    <PropertyGroup Condition="'$(Platform)' == 'x86' Or '$(Platform)' == 'x64'">
       <PlatformTarget>$(Platform)</PlatformTarget>
