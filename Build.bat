@@ -1,3 +1,4 @@
+color 02
 dotnet restore
 
 @timeout 3
