@@ -78,19 +78,19 @@ Right-click the title bar → **About...** for version information.
 
 The caterpillar eats the first background it finds, in this order:
 
-1. **Your real desktop.** `%LocalAppData%\Remus RIGO\SnapDesktop\Desktop.png`, taken by [SnapDesktop](https://github.com/RemusRigo/SnapDesktop-VB.NET).
+1. **A screenshot of your desktop found here: ** `%LocalAppData%\Remus RIGO\SnapDesktop\Desktop.png`, taken by [SnapDesktop](https://github.com/RemusRigo/SnapDesktop-VB.NET).
    It is only used if its size matches your current monitor layout.
 2. **Your wallpaper**, scaled to fill every monitor.
 3. **The solid desktop color** of your current Windows theme.
 
-### Optional: eat your real desktop with SnapDesktop
+### Optional: Use SnapDesktop so the Caterpillar can eat your real desktop.
 
 Windows switches to a separate desktop when the screensaver starts, so a screensaver can't
 capture your open windows by itself. [SnapDesktop](https://github.com/RemusRigo/SnapDesktop-VB.NET)
 runs in the background and saves a screenshot of your desktop every minute; the screensaver then
 uses that image, so the caterpillar eats your actual windows, icons, and taskbar.
 
-1. Download and run SnapDesktop (add it to Startup to run it automatically).
+1. Download and run SnapDesktop (it will add itsefl to Startup so it can run automatically).
 2. That's it: the screensaver picks up `Desktop.png` automatically.
 
 > After you add or remove a monitor or change resolution or scaling, the screenshot is ignored until
