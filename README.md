@@ -3,7 +3,7 @@ Caterpillar ScreenSaver: a caterpillar eating out your desktop
 
 
 
-## Authors
+## Author
 
 * [@remusrigo](https://github.com/RemusRigo)
 * [@remusrigo](https://sourceforge.net/u/remusrigo/profile)
