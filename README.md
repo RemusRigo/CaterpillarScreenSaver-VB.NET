@@ -1,7 +1,7 @@
 # Caterpillar ScreenSaver
 Caterpillar ScreenSaver: a caterpillar eating out your desktop
 
-![VB.NET](https://img.shields.io/badge/VB.NET-512BD4?style=for-the-badge&logo=.net&logoColor=white)
+
 
 ## Authors
 
@@ -27,7 +27,9 @@ See the [User's Guide](UsersGuide.md) for downloads, runtimes, installation and 
 
 ## Statistics
 
-![status](https://img.shields.io/badge/status-completed-brightgreen)<br>
+![VB.NET](https://img.shields.io/badge/VB.NET-512BD4?style=for-the-badge&logo=.net&logoColor=white)
+<br>
+![status](https://img.shields.io/badge/status-completed-brightgreen) 
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/RemusRigo/CaterpillarScreenSaver-VB.NET/total)
 
 
