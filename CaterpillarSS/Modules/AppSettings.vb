@@ -8,8 +8,6 @@ Imports Microsoft.Win32
 
 Module AppSettings
 
-   Private regAppPath As String = "Software\Remus RIGO\CaterpillarSS.VB-NET"
-
    Public Speed As Single = 1.5F    ' pixels per tick, 0.5 - 5.0
    Public BodySize As Integer = 8   ' head radius in pixels, 8 - 24
    Public BodyColor As Color = Color.FromArgb(120, 190, 60)

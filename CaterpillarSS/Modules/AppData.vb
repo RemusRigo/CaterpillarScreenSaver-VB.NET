@@ -13,4 +13,6 @@ Module AppData
    Public Const appLink As String = "© 2026 " & appAuthor
    Public Const appTitle As String = appName & " " & appVersion & "." & appBuild
 
+   Public regAppPath As String = "Software\Remus RIGO\CaterpillarSS-VB.NET"
+
 End Module

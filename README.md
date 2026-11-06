@@ -1,6 +1,7 @@
 # Caterpillar ScreenSaver
 Caterpillar ScreenSaver: a caterpillar eating out your desktop
 
+![Screenshot](https://github.com/RemusRigo/SnapDesktop-VB.NET/blob/main/Screenshots/Screenshot.png)
 
 
 ## Author
@@ -22,7 +23,7 @@ Caterpillar ScreenSaver: a caterpillar eating out your desktop
 
 ## User's Guide
 
-See the [User's Guide](UsersGuide.md) for downloads, runtimes, installation and settings.
+See the [User's Guide](Users%20Guide.md) for downloads, runtimes, installation and settings.
 
 
 
@@ -42,6 +43,7 @@ See the [User's Guide](UsersGuide.md) for downloads, runtimes, installation and 
 
 ## Roadmap
 
+* 2026-11-06: Add: Screenshot
 * 2026-10-12: Fix: Settings: "About..." system-menu ID (must be a multiple of 16)
 * 2026-10-12: Fix: Desktop.png was loaded from a closed stream (could fail with "A generic error occurred in GDI+")
 * 2026-10-12: Fix: Desktop.png is ignored if its size doesn't match the current monitor layout (falls back to the wallpaper)

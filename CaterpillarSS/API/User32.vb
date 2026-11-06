@@ -2,7 +2,7 @@
 ' user32.dll Functions for formanaging windows, handling input, and other core user interface tasks.
 '
 '   © 2026 Remus Rigo
-'      v1.0.20261009
+'      v1.0.20261024
 '--------------------------------------------------------------------------------------------------
 
 Imports System.Runtime.InteropServices
@@ -114,6 +114,10 @@ Namespace API
       End Function
 
       <DllImport("user32.dll", SetLastError:=True, CharSet:=CharSet.Auto)>
+      Public Function GetSystemMetrics(nIndex As Integer) As Integer
+      End Function
+
+      <DllImport("user32.dll", SetLastError:=True, CharSet:=CharSet.Auto)>
       Public Function GetThreadDesktop(threadId As Integer) As IntPtr
       End Function
 
@@ -161,8 +165,14 @@ Namespace API
       Public Function ReleaseDC(hwnd As IntPtr, hDC As IntPtr) As Integer
       End Function
 
+      ' Def 1
       <DllImport("user32.dll", SetLastError:=True, CharSet:=CharSet.Auto)>
       Public Function SendMessage(hWnd As IntPtr, Msg As UInteger, wParam As IntPtr, lParam As IntPtr) As IntPtr
+      End Function
+
+      ' Def 2
+      <DllImport("user32.dll", SetLastError:=True, CharSet:=CharSet.Auto)>
+      Public Function SendMessage(hWnd As IntPtr, Msg As UInteger, wParam As IntPtr, ByRef lParam As RECT) As IntPtr
       End Function
 
       <DllImport("user32.dll", SetLastError:=True, CharSet:=CharSet.Auto)>
