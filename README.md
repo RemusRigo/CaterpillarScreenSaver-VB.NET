@@ -1,7 +1,7 @@
 # Caterpillar ScreenSaver
 Caterpillar ScreenSaver: a caterpillar eating out your desktop
 
-![Screenshot](https://github.com/RemusRigo/SnapDesktop-VB.NET/blob/main/Screenshots/Screenshot.png)
+![Screenshot](https://github.com/RemusRigo/CaterpillarScreenSaver-VB.NET/blob/main/Screenshots/Screenshot.png)
 
 
 ## 👤 Author
